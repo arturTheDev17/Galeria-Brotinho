@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALERIA BROTO</title>
+    <link rel="stylesheet" href="./output.css">
+    <script src="./galeria.js" defer></script>
+</head>
+<body class="items-center flex flex-col justify-center w-full" >
+    <header class="py-10 px-16 flex justify-center w-full bg-gray-50" >
+        <h1 class="font-bold text-5xl">
+            GALERIA DE IMAGENS DO BROTINHO
+        </h1>
+    </header>
+    <main class="flex flex-col justify-center items-center w-5/6 mt-16 text-2xl" >
+
+        <div class=" px-4 pb-2 flex flex-row justify-between items-center w-full" >
+            <div>
+                <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-green-600 text-4xl" type="button" onclick="adicionar()" > + </button>
+                <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-red-600 text-4xl" type="button" onclick="remover()" > - </button>
+            </div>
+            <span class="font-bold" id="contagem"></span>
+
+        </div>
+        
+        <div id="containers" class="flex flex-row items-stretch w-full gap-x-4" >
+            
+            <section id="galeria" class="dropzone p-8 gap-4 grid grid-cols-2 
+            w-1/2 bg-red-200 rounded-xl border-[3px] border-red-300 gap-y-4">
+            </section>
+    
+            <section id="favoritos" class="dropzone p-8 gap-4 grid grid-cols-2 
+                w-1/2 bg-blue-200 rounded-xl border-[3px] border-blue-300 gap-y-4">
+                    
+            </section>
+        </div>
+    </main>
+
+</body>
+</html>
