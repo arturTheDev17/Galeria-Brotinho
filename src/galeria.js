@@ -2,20 +2,48 @@ const draggable = document.querySelectorAll('.draggable');
 const dropzone = document.querySelectorAll('.dropzone');
 
 var draggingElement = null;
+var modoTema = localStorage.getItem('modo');
+var contadorVisitas = localStorage.getItem('contadorVisitas');
 
-// window.onload = () => {
-//   var contador = Number(localStorage.getItem('contador'));
-//   for (let i = 0; i < contador; i++) {
-//       adicionar();
-//   }
-// } tá dando ruim
+contadorVisitas = ( contadorVisitas === null ) ? 0 : Number( contadorVisitas ) + 1;
+localStorage.setItem('contadorVisitas', contadorVisitas);
 
+document.getElementById('contadorVisitas').innerHTML = contadorVisitas;
 
 updateFotos();
+setModo( modoTema );
 
+function setModo( modoTema ) {
+  const modo = document.getElementById('modo');
+  if ( modoTema === 'dark' ) {
+    document.body.classList.add('dark');
+    document.body.classList.remove('white');
+    modo.classList.add('fa-moon');
+    modo.classList.remove('fa-sun');
+    modo.classList.add('text-white');
+    modo.classList.remove('text-black');
+    modo.parentElement.classList.add('bg-black');
+    modo.parentElement.classList.remove('bg-white');
+  } else {
+    document.body.classList.remove('dark');
+    document.body.classList.add('white');
+    modo.classList.add('fa-sun');
+    modo.classList.remove('fa-moon');
+    modo.classList.add('text-black');
+    modo.classList.remove('text-white');
+    modo.parentElement.classList.add('bg-white');
+    modo.parentElement.classList.remove('bg-black');
+  }
+}
 
-function localStorageContador() {
-  localStorage.contador = contador;
+function trocarModo() {
+  console.log( modoTema );
+  modoTema = ( modoTema === 'dark' ) ? 'white' : 'dark';
+  console.log( modoTema );
+
+  setModo( modoTema );
+
+  localStorage.setItem('modo', modoTema);
 }
 
 function adicionar() {
@@ -34,8 +62,8 @@ function adicionar() {
 
   updateFotos();
 
-  contador++
-  localStorageContador();
+  // contador++
+  // localStorageContador();
 }
 
 function remover(){
@@ -122,7 +150,7 @@ dropzone.forEach (zone => {
             targetItem.style.borderBottom = '';
           }
 
-        } else if ( targetItem.classList.contains('dropzone') ) {
+        } else if ( targetItem.classList.contains('dropzone') || targetItem.id != '' ) {
           draggable.forEach(element => {
 
           element.style.borderTop = '';
@@ -144,19 +172,25 @@ dropzone.forEach (zone => {
       const targetItem = event.target;
       event.preventDefault();
       zone.classList.remove('over'); 
-      
+
       if (targetItem !== draggingElement) {
         
         if (targetItem.classList.contains('draggable')) {
-          
+          //COLOCAR PRA ADICIONAR NOS LADOS TAMBÉM
           if (event.clientY > targetItem.getBoundingClientRect().top + (targetItem.offsetHeight / 2)) {
             targetItem.parentNode.insertBefore(draggingElement, targetItem.nextSibling);
           } else {
             targetItem.parentNode.insertBefore(draggingElement, targetItem);
           }
 
-        } else if ( targetItem.classList.contains('dropzone') ) {
-
+        } else if ( targetItem.classList.contains('dropzone') || targetItem.id != '' ) {
+          if ( targetItem.classList.contains('bg-red-200') || zone.id === 'galeria' ) {
+            zone = document.getElementById('galeria');
+          } 
+          
+          if ( targetItem.classList.contains('bg-blue-200') || zone.id === 'favoritos' ) {
+            zone = document.getElementById('favoritos');
+          }
           zone.appendChild( draggingElement ); 
 
         }

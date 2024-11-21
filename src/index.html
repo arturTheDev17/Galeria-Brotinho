@@ -6,36 +6,55 @@
     <title>GALERIA BROTO</title>
     <link rel="stylesheet" href="./output.css">
     <script src="./galeria.js" defer></script>
+    <script src="https://kit.fontawesome.com/088365c3f2.js" crossorigin="anonymous" defer></script>
 </head>
-<body class="items-center flex flex-col justify-center w-full" >
-    <header class="py-10 px-16 flex justify-center w-full bg-gray-50" >
-        <h1 class="font-bold text-5xl">
-            GALERIA DE IMAGENS DO BROTINHO
-        </h1>
-    </header>
-    <main class="flex flex-col justify-center items-center w-5/6 mt-16 text-2xl" >
+<body class="items-start flex flex-col justify-start w-full h-[100vh] bg-white dark:bg-gray-800" >
 
-        <div class=" px-4 pb-2 flex flex-row justify-between items-center w-full" >
-            <div>
-                <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-green-600 text-4xl" type="button" onclick="adicionar()" > + </button>
-                <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-red-600 text-4xl" type="button" onclick="remover()" > - </button>
-            </div>
-            <span class="font-bold" id="contagem"></span>
-
-        </div>
+    <main class="flex flex-col justify-center items-center w-full text-2xl " >
         
-        <div id="containers" class="flex flex-row items-stretch w-full gap-x-4" >
-            
-            <section id="galeria" class="dropzone p-8 gap-4 grid grid-cols-2 
-            w-1/2 bg-red-200 rounded-xl border-[3px] border-red-300 gap-y-4">
+        <header class="py-10 px-16 flex flex-col items-center justify-center w-full bg-gray-50 dark:bg-gray-900" >
+            <section class="w-full" >
+                <button 
+                class="h-14 w-14 rounded-full border border-black border-solid flex items-center justify-center hover:scale-105 transition-all duration-300" 
+                type="button" onclick="trocarModo()" > <i id="modo" class="fa-solid fa-sun text-2xl"></i> 
+                </button>
             </section>
+            <h1 class="font-bold text-5xl text-black dark:text-gray-50">
+                GALERIA DE IMAGENS DO BROTINHO
+            </h1>
+        </header>
+
+        <section class="w-5/6 flex flex-col items-center justify-center my-16" >
+            <div class=" px-4 pb-2 flex flex-row justify-between items-center w-full" >
+                <div>
+                    <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-green-600 text-4xl hover:scale-105 transition-all duration-300" type="button" onclick="adicionar()" > + </button>
+                    <button class="h-14 w-14 font-mono text-gray-50 font-bold rounded-full bg-red-600 text-4xl hover:scale-105 transition-all duration-300" type="button" onclick="remover()" > - </button>
+                </div>
+                <span class="font-bold text-black dark:text-gray-50" id="contagem"></span>
     
-            <section id="favoritos" class="dropzone p-8 gap-4 grid grid-cols-2 
-                w-1/2 bg-blue-200 rounded-xl border-[3px] border-blue-300 gap-y-4">
-                    
-            </section>
-        </div>
+            </div>
+            
+            <div id="containers" class="flex flex-row items-stretch w-full gap-x-4" >
+                <div class="dropzone w-1/2 bg-red-200 rounded-xl border-[3px] border-red-300" >
+                    <section id="galeria" class="p-8 gap-4 grid grid-cols-2 
+                    w-full ">
+                    </section>
+                </div>
+        
+                <div class="dropzone w-1/2 bg-blue-200 rounded-xl border-[3px] border-blue-300" >
+                    <section id="favoritos" class=" p-8 gap-4 grid grid-cols-2 
+                        w-full ">
+                    </section>
+                </div>
+    
+            </div>
+        </section>
     </main>
+
+    <footer class="py-10 px-16 flex flex-col items-center justify-center w-full mt-auto bg-gray-50 dark:bg-gray-900" >
+        <span class="self-end text-black dark:text-gray-50" > Contador de visitas: <span class="font-bold" id="contadorVisitas" ></span> </span>
+        
+    </footer>
 
 </body>
 </html>
