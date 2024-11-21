@@ -3,21 +3,31 @@ const dropzone = document.querySelectorAll('.dropzone');
 
 var draggingElement = null;
 var modoTema = localStorage.getItem('modo');
-var contadorVisitas = localStorage.getItem('contadorVisitas');
+setModo( modoTema );
 
+var contadorFavoritos = Number(localStorage.getItem('contadorFavoritos'));
+
+console.log( contadorFavoritos );
+
+  for (let i = 0; i < contadorFavoritos; i++) {
+    document.getElementById('favoritos').appendChild( imagem() );
+  }
+
+var contadorVisitas = localStorage.getItem('contadorVisitas');
 contadorVisitas = ( contadorVisitas === null ) ? 0 : Number( contadorVisitas ) + 1;
 localStorage.setItem('contadorVisitas', contadorVisitas);
-
 document.getElementById('contadorVisitas').innerHTML = contadorVisitas;
 
 updateFotos();
-setModo( modoTema );
+
 
 function setModo( modoTema ) {
   const modo = document.getElementById('modo');
+
   if ( modoTema === 'dark' ) {
     document.body.classList.add('dark');
     document.body.classList.remove('white');
+
     modo.classList.add('fa-moon');
     modo.classList.remove('fa-sun');
     modo.classList.add('text-white');
@@ -27,6 +37,7 @@ function setModo( modoTema ) {
   } else {
     document.body.classList.remove('dark');
     document.body.classList.add('white');
+
     modo.classList.add('fa-sun');
     modo.classList.remove('fa-moon');
     modo.classList.add('text-black');
@@ -37,41 +48,46 @@ function setModo( modoTema ) {
 }
 
 function trocarModo() {
-  console.log( modoTema );
   modoTema = ( modoTema === 'dark' ) ? 'white' : 'dark';
-  console.log( modoTema );
 
   setModo( modoTema );
 
   localStorage.setItem('modo', modoTema);
 }
 
-function adicionar() {
-
-  const galeriaElements = document.getElementById('galeria');
-
+function imagem() {
   const div = document.createElement('div');
   div.className = 'w-full h-64 cursor-move draggable font-bold text-xl text-center text-white rounded-md bg-red-500 bg-center bg-cover';
   div.draggable = true;
   
   div.style.backgroundImage = `url( ./images/img${Math.floor(Math.random() * 10) + 1}.jpg )`;
-
-  galeriaElements.appendChild(div);
-
   eventListeners(div);
+
+  return div;
+}
+
+function adicionar() {
+
+  const galeriaElements = document.getElementById('galeria');
+
+  const div = imagem();
+  galeriaElements.appendChild(div);
 
   updateFotos();
 
-  // contador++
-  // localStorageContador();
+}
+
+function localStorageContador() {
+  localStorage.setItem('contadorFavoritos', contadorFavoritos);
 }
 
 function remover(){
+  
   const galeriaElements = document.getElementById('galeria');
-  galeriaElements.removeChild(galeriaElements.lastChild);
-
-  contador = ( contador - 1 < 0 ) ? 0 : contador - 1;
-  localStorageContador();
+  if ( galeriaElements.hasChildNodes) {
+    galeriaElements.removeChild(galeriaElements.lastChild);
+  }
+  
 
 }
 
@@ -184,6 +200,7 @@ dropzone.forEach (zone => {
           }
 
         } else if ( targetItem.classList.contains('dropzone') || targetItem.id != '' ) {
+          
           if ( targetItem.classList.contains('bg-red-200') || zone.id === 'galeria' ) {
             zone = document.getElementById('galeria');
           } 
@@ -191,7 +208,8 @@ dropzone.forEach (zone => {
           if ( targetItem.classList.contains('bg-blue-200') || zone.id === 'favoritos' ) {
             zone = document.getElementById('favoritos');
           }
-          zone.appendChild( draggingElement ); 
+
+          zone.appendChild( draggingElement );
 
         }
       }
@@ -225,4 +243,7 @@ function updateFotos() {
     })
 
     document.getElementById('contagem').innerHTML = favoritosElements.length + ( favoritosElements.length > 1 ? ' favoritos' : ' favorito' );
+    contadorFavoritos = favoritosElements.length;
+    localStorageContador();
+
 }
