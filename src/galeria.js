@@ -7,8 +7,6 @@ setModo( modoTema );
 
 var contadorFavoritos = Number(localStorage.getItem('contadorFavoritos'));
 
-console.log( contadorFavoritos );
-
   for (let i = 0; i < contadorFavoritos; i++) {
     document.getElementById('favoritos').appendChild( imagem() );
   }
@@ -201,11 +199,11 @@ dropzone.forEach (zone => {
 
         } else if ( targetItem.classList.contains('dropzone') || targetItem.id != '' ) {
           
-          if ( targetItem.classList.contains('bg-red-200') || zone.id === 'galeria' ) {
+          if ( targetItem.classList.contains('bg-red-200') || targetItem.id === 'galeria' ) {
             zone = document.getElementById('galeria');
           } 
           
-          if ( targetItem.classList.contains('bg-blue-200') || zone.id === 'favoritos' ) {
+          if ( targetItem.classList.contains('bg-blue-200') || targetItem.id === 'favoritos' ) {
             zone = document.getElementById('favoritos');
           }
 
